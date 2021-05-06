@@ -24,7 +24,7 @@ class Node:
             self.lchild = Node(value)
 
     def __iter__(self):
-        return NodeInOrderIterator(node_obj=self)
+        return NodePostOrderIterator(node_obj=self)
 
     def __next__(self):
         return self.__iter__().__next__()
@@ -33,7 +33,7 @@ class Node:
         return f'{self.lchild}-{self.parent}-{self.rchild}'
 
 
-class NodeInOrderIterator(Iterator):
+class NodePostOrderIterator(Iterator):
     def __init__(self, node_obj: Node):
         self.node = node_obj
         self.cursor = None
@@ -76,20 +76,20 @@ class Tree(ABC):
 
     @abstractmethod
     def __iter__(self):
-        # appropriate iterator. There are only one InOrderIterator
+        # appropriate iterator. There are only one PostOrderIterator
         pass
 
 
-class InOrderTree(Tree):
+class PostOrderTree(Tree):
     def __init__(self, root: Node = None):
         super().__init__(root)
 
     def __iter__(self):
-        return NodeInOrderIterator(node_obj=self.root)
+        return NodePostOrderIterator(node_obj=self.root)
 
 
 if __name__ == '__main__':
-    node = InOrderTree(Node(10))
+    node = PostOrderTree(Node(10))
     node.add(11)
     node.add(12)
     node.add(13)
